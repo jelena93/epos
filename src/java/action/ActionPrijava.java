@@ -5,35 +5,37 @@
  */
 package action;
 
+import domen.Korisnik;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import util.Util;
 
-/**
- *
- * @author Jelena
- */
 public class ActionPrijava implements Action {
 
     @Override
     public String obradiZahtev(HttpServletRequest request) {
         String strana;
-        String ime = request.getParameter("korisnickoIme");
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("KarateKlubPU");
-//        EntityManager em = emf.createEntityManager();
-//
-//        Korisnik k = em.find(Korisnik.class, ime);
-//        if (k != null) {
-////            strana = Util.getProperty(Util.POCETNA);
-            strana = "pocetna";
-//            HttpSession sesija = request.getSession(true);
-//            sesija.setAttribute("ulogovan_korisnik", k);
-//        } else {
-//            strana = Util.getProperty(Util.PRIJAVA);
-//            strana = "prijava";
-//        }
-//        System.out.println(strana);
-//        em.close();
-//        emf.close();
+        String username = request.getParameter("username");
+        String lozinka = request.getParameter("lozinka");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(Util.PERSISTENCE_UNIT_NAME);
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createQuery("SELECT k FROM Korisnik k WHERE k.username=:u AND k.lozinka=:l");
+        query.setParameter("u", username);
+        query.setParameter("l", lozinka);
+        Korisnik korisnik = (Korisnik) query.getSingleResult();
+        if (korisnik != null) {
+            strana = Util.STRANA_POCETNA;
+            HttpSession sesija = request.getSession(true);
+            sesija.setAttribute(Util.ULOGOVAN, korisnik);
+        } else {
+            strana = Util.getUrl(Util.STRANA_PRIJAVA);
+        }
+        em.close();
+        emf.close();
         return strana;
     }
 

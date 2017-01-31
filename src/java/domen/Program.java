@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,38 +24,37 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Jelena
  */
 @Entity
-@Table(name = "ispit")
+@Table(name = "program")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ispit.findAll", query = "SELECT i FROM Ispit i")
-    , @NamedQuery(name = "Ispit.findById", query = "SELECT i FROM Ispit i WHERE i.id = :id")
-    , @NamedQuery(name = "Ispit.findByNaziv", query = "SELECT i FROM Ispit i WHERE i.naziv = :naziv")})
-public class Ispit implements Serializable {
+    @NamedQuery(name = "Program.findAll", query = "SELECT p FROM Program p")
+    , @NamedQuery(name = "Program.findByProgramId", query = "SELECT p FROM Program p WHERE p.programId = :programId")
+    , @NamedQuery(name = "Program.findByNaziv", query = "SELECT p FROM Program p WHERE p.naziv = :naziv")})
+public class Program implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "program_id")
+    private Integer programId;
     @Column(name = "naziv")
     private String naziv;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ispit")
-    private List<IspitnaPrijava> ispitnaPrijavaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "program")
+    private List<Clanarina> clanarinaList;
 
-    public Ispit() {
+    public Program() {
     }
 
-    public Ispit(Integer id) {
-        this.id = id;
+    public Program(Integer programId) {
+        this.programId = programId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getProgramId() {
+        return programId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setProgramId(Integer programId) {
+        this.programId = programId;
     }
 
     public String getNaziv() {
@@ -69,29 +66,29 @@ public class Ispit implements Serializable {
     }
 
     @XmlTransient
-    public List<IspitnaPrijava> getIspitnaPrijavaList() {
-        return ispitnaPrijavaList;
+    public List<Clanarina> getClanarinaList() {
+        return clanarinaList;
     }
 
-    public void setIspitnaPrijavaList(List<IspitnaPrijava> ispitnaPrijavaList) {
-        this.ispitnaPrijavaList = ispitnaPrijavaList;
+    public void setClanarinaList(List<Clanarina> clanarinaList) {
+        this.clanarinaList = clanarinaList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (programId != null ? programId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ispit)) {
+        if (!(object instanceof Program)) {
             return false;
         }
-        Ispit other = (Ispit) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        Program other = (Program) object;
+        if ((this.programId == null && other.programId != null) || (this.programId != null && !this.programId.equals(other.programId))) {
             return false;
         }
         return true;
@@ -99,7 +96,7 @@ public class Ispit implements Serializable {
 
     @Override
     public String toString() {
-        return "domen.Ispit[ id=" + id + " ]";
+        return "domen.Program[ programId=" + programId + " ]";
     }
     
 }

@@ -38,22 +38,15 @@ public class FrontController extends HttpServlet {
         System.out.println("url:" + url);
 
         String view = appController.obradiZahtev(url, request);
+        System.out.println("vuew" + view);
         String strana = LookUpView.getView(view);
-//            HttpSession sesija = request.getSession(true);
-//            sesija.setAttribute("ulogovan_korisnik", KolekcijaKorisnika.getInstance().getUlogovanKorisnik());
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(strana);
-        rd.forward(request, response);
-
-        /*      
-         String path = request.getPathInfo();
-         System.out.println("Path: " + path);
-         //obradi zahtev
-         String view = appCon.obradiZahtev(path, request);
-         String strana = LookUpView.getView(view);
-         RequestDispatcher rd = getServletContext().getRequestDispatcher(strana);
-         rd.forward(request, response);
-         response.setContentType("text/html;charset=UTF-8");
-         */
+        System.out.println("strana" + strana);
+        if (strana == null) {
+            response.sendRedirect(request.getContextPath() + view);
+        } else {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher(strana);
+            rd.forward(request, response);
+        }
     }
 
     @Override

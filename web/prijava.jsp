@@ -1,73 +1,54 @@
-<%-- 
-    Document   : prijava
-    Created on : Apr 20, 2016, 2:50:42 PM
-    Author     : Jelena
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Karate klub | Prijava</title>
-        <meta name="description" content="">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="resources/apple-touch-icon" href="apple-touch-icon.png">
-        <link rel="stylesheet" href="/karateklub/resources/css/bootstrap.min.css">
-        <link rel="icon" href="resources/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="resources/css/main.css">
-        <script src="resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <title>Prijava</title>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link href="resources/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+        <link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="resources/css/login-form-elements.css" rel="stylesheet" />
+        <link href="resources/css/login.css" rel="stylesheet" />
+        <script src="resources/js/jquery-1.11.1.min.js"></script>
     </head>
-
     <body>
-        <div class="jumbotron">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <h2 class="text-center">Karate klub - Prijava</h2>
-                        <hr/>
-                        <form class="form-horizontal" role="form" action="/karateklub/action/prijava" method="POST">
-                            <div class="form-group">
-                                <label for="ime" class="col-sm-3 control-label">Korisnicko ime:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="ime" name="korisnickoIme">
+        <div class="top-content">
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>Prijava</h3>
+                                    <p>Unesite username i lozinku:</p>    
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-lock"></i>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="sifra" class="col-sm-3 control-label">Korisnicka sifra:</label>
-                                <div class="col-sm-9">
-                                    <input type="password" class="form-control" id="sifra" name="korisnickaSifra">
-                                </div>
+                            <div class="form-bottom">
+                                <form role="form" action="action/prijava" method="post" class="login-form">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-username">Username</label>
+                                        <input type="text" name="username" placeholder="Username" class="form-username form-control" id="form-username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Lozinka:</label>
+                                        <input type="password" name="lozinka" placeholder="Lozinka" class="form-password form-control" id="form-password">
+                                    </div>
+                                    <button type="submit" class="btn">Prijavi se</button>
+                                </form>
                             </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-10 col-sm-2">
-                                    <button type="submit" class="btn btn-default">Prijavi se</button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
-        <script>window.jQuery || document.write('<script src="resources/js/vendor/jquery-1.11.2.js"><\/script>')
-        </script>
-
-        <script src="resources/js/vendor/bootstrap.min.js"></script>
-
-        <script src="resources/js/main.js"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-//            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-//            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-//            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-//            e.src='//www.google-analytics.com/analytics.js';
-//            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-//            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-        </script>
+        </div>        
+        <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/js/jquery.backstretch.min.js"></script>
+        <script src="resources/js/scripts.js"></script>
     </body>
 </html>
