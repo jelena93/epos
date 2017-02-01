@@ -6,6 +6,7 @@
 package action;
 
 import domen.Korisnik;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -26,11 +27,11 @@ public class ActionPrijava implements Action {
         Query query = em.createQuery("SELECT k FROM Korisnik k WHERE k.username=:u AND k.lozinka=:l");
         query.setParameter("u", username);
         query.setParameter("l", lozinka);
-        Korisnik korisnik = (Korisnik) query.getSingleResult();
-        if (korisnik != null) {
+        List<Korisnik> ls = query.getResultList();
+        if (!ls.isEmpty()) {
             strana = Util.STRANA_POCETNA;
             HttpSession sesija = request.getSession(true);
-            sesija.setAttribute(Util.ULOGOVAN, korisnik);
+            sesija.setAttribute(Util.ULOGOVAN, ls.get(0));
         } else {
             strana = Util.getUrl(Util.STRANA_PRIJAVA);
         }

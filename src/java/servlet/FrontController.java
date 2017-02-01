@@ -9,15 +9,18 @@ import controller.app.ApplicationController;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.Util;
 import view.LookUpView;
 
 /**
  *
  * @author Jelena
  */
+@WebServlet(name = "FrontController", urlPatterns = {"/action/*"})
 public class FrontController extends HttpServlet {
 
     private ApplicationController appController;
@@ -38,14 +41,18 @@ public class FrontController extends HttpServlet {
         System.out.println("url:" + url);
 
         String view = appController.obradiZahtev(url, request);
-        System.out.println("vuew" + view);
+        System.out.println("view" + view);
         String strana = LookUpView.getView(view);
         System.out.println("strana" + strana);
         if (strana == null) {
             response.sendRedirect(request.getContextPath() + view);
         } else {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(strana);
-            rd.forward(request, response);
+            if (url.contains(Util.STRANA_PRIJAVA)) {
+                response.sendRedirect(Util.STRANA_POCETNA);
+            } else {
+                RequestDispatcher rd = getServletContext().getRequestDispatcher(strana);
+                rd.forward(request, response);
+            }
         }
     }
 

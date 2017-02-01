@@ -3,30 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package domen;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Jelena
+ * @author jelenas
  */
 @Embeddable
 public class ClanarinaPK implements Serializable {
-
     @Basic(optional = false)
+    @NotNull
     @Column(name = "program_id")
     private int programId;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "broj_clana")
     private int brojClana;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "mesec")
     private String mesec;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "godina")
     private int godina;
 

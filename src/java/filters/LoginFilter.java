@@ -13,11 +13,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.Util;
 
+@WebFilter(filterName = "LoginFilter", urlPatterns = {"/*"})
 public class LoginFilter implements Filter {
 
     private ServletContext context;
@@ -34,12 +36,15 @@ public class LoginFilter implements Filter {
         String uri = req.getRequestURI();
         System.out.println("uri" + uri);
         HttpSession session = req.getSession(false);
-//        if (uri.endsWith("odjava") || (session != null && session.getAttribute(Util.ULOGOVAN) == null && !uri.endsWith("prijava"))) {
-//            session.invalidate();
-//            res.sendRedirect(context.getContextPath() + "/prijava.jsp");
-//            return;
-//        }
-        System.out.println("stigooo"+uri);
+        if (uri.endsWith("odjava")) {
+            session.invalidate();
+            res.sendRedirect(context.getContextPath() + "/prijava.jsp");
+            return;
+        }
+        if (uri.contains("action") && session.getAttribute(Util.ULOGOVAN) == null && !uri.endsWith("prijava")) {
+            res.sendRedirect(context.getContextPath() + "/prijava.jsp");
+            return;
+        }
         if (session == null && !(uri.endsWith("jsp") || uri.endsWith("FrontController"))) {
             res.sendRedirect(context.getContextPath() + "/prijava.jsp");
         } else {

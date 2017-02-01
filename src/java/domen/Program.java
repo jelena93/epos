@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package domen;
 
 import java.io.Serializable;
@@ -16,27 +17,32 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Jelena
+ * @author jelenas
  */
 @Entity
 @Table(name = "program")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Program.findAll", query = "SELECT p FROM Program p")
-    , @NamedQuery(name = "Program.findByProgramId", query = "SELECT p FROM Program p WHERE p.programId = :programId")
-    , @NamedQuery(name = "Program.findByNaziv", query = "SELECT p FROM Program p WHERE p.naziv = :naziv")})
+    @NamedQuery(name = "Program.findAll", query = "SELECT p FROM Program p"),
+    @NamedQuery(name = "Program.findByProgramId", query = "SELECT p FROM Program p WHERE p.programId = :programId"),
+    @NamedQuery(name = "Program.findByNaziv", query = "SELECT p FROM Program p WHERE p.naziv = :naziv")})
 public class Program implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "program_id")
     private Integer programId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
     @Column(name = "naziv")
     private String naziv;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "program")
@@ -47,6 +53,11 @@ public class Program implements Serializable {
 
     public Program(Integer programId) {
         this.programId = programId;
+    }
+
+    public Program(Integer programId, String naziv) {
+        this.programId = programId;
+        this.naziv = naziv;
     }
 
     public Integer getProgramId() {

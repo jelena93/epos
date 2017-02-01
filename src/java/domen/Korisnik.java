@@ -3,55 +3,70 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package domen;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Jelena
+ * @author jelenas
  */
 @Entity
 @Table(name = "korisnik")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k")
-    , @NamedQuery(name = "Korisnik.findByUsername", query = "SELECT k FROM Korisnik k WHERE k.username = :username")
-    , @NamedQuery(name = "Korisnik.findByLozinka", query = "SELECT k FROM Korisnik k WHERE k.lozinka = :lozinka")
-    , @NamedQuery(name = "Korisnik.findByIme", query = "SELECT k FROM Korisnik k WHERE k.ime = :ime")
-    , @NamedQuery(name = "Korisnik.findByPrezime", query = "SELECT k FROM Korisnik k WHERE k.prezime = :prezime")})
+    @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k"),
+    @NamedQuery(name = "Korisnik.findByUsername", query = "SELECT k FROM Korisnik k WHERE k.username = :username"),
+    @NamedQuery(name = "Korisnik.findByLozinka", query = "SELECT k FROM Korisnik k WHERE k.lozinka = :lozinka"),
+    @NamedQuery(name = "Korisnik.findByIme", query = "SELECT k FROM Korisnik k WHERE k.ime = :ime"),
+    @NamedQuery(name = "Korisnik.findByPrezime", query = "SELECT k FROM Korisnik k WHERE k.prezime = :prezime")})
 public class Korisnik implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "username")
     private String username;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "lozinka")
     private String lozinka;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "ime")
     private String ime;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
     @Column(name = "prezime")
     private String prezime;
-    @OneToMany(mappedBy = "korisnik")
-    private List<Clanarina> clanarinaList;
 
     public Korisnik() {
     }
 
     public Korisnik(String username) {
         this.username = username;
+    }
+
+    public Korisnik(String username, String lozinka, String ime, String prezime) {
+        this.username = username;
+        this.lozinka = lozinka;
+        this.ime = ime;
+        this.prezime = prezime;
     }
 
     public String getUsername() {
@@ -84,15 +99,6 @@ public class Korisnik implements Serializable {
 
     public void setPrezime(String prezime) {
         this.prezime = prezime;
-    }
-
-    @XmlTransient
-    public List<Clanarina> getClanarinaList() {
-        return clanarinaList;
-    }
-
-    public void setClanarinaList(List<Clanarina> clanarinaList) {
-        this.clanarinaList = clanarinaList;
     }
 
     @Override

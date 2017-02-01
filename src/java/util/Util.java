@@ -22,6 +22,8 @@ public class Util {
     public static String ULOGOVAN = "ulogovan";
     public static String STRANA_PRIJAVA = "prijava";
     public static String STRANA_POCETNA = "pocetna";
+    public static String STRANA_UNOS_CLANA = "unos_clana";
+    public static String STRANA_PRETRAGA_CLANOVA = "pretraga_clanova";
     public static Properties propUrl = new Properties();
     public static Properties propKlasa = new Properties();
 

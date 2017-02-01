@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -19,40 +21,57 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Jelena
+ * @author jelenas
  */
 @Entity
 @Table(name = "clan")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Clan.findAll", query = "SELECT c FROM Clan c")
-    , @NamedQuery(name = "Clan.findByBrojClana", query = "SELECT c FROM Clan c WHERE c.brojClana = :brojClana")
-    , @NamedQuery(name = "Clan.findByDatumUclanjenja", query = "SELECT c FROM Clan c WHERE c.datumUclanjenja = :datumUclanjenja")
-    , @NamedQuery(name = "Clan.findByIme", query = "SELECT c FROM Clan c WHERE c.ime = :ime")
-    , @NamedQuery(name = "Clan.findByPrezime", query = "SELECT c FROM Clan c WHERE c.prezime = :prezime")
-    , @NamedQuery(name = "Clan.findByKontakt", query = "SELECT c FROM Clan c WHERE c.kontakt = :kontakt")
-    , @NamedQuery(name = "Clan.findByAdresa", query = "SELECT c FROM Clan c WHERE c.adresa = :adresa")})
+    @NamedQuery(name = "Clan.findAll", query = "SELECT c FROM Clan c"),
+    @NamedQuery(name = "Clan.findByBrojClana", query = "SELECT c FROM Clan c WHERE c.brojClana = :brojClana"),
+    @NamedQuery(name = "Clan.findByDatumUclanjenja", query = "SELECT c FROM Clan c WHERE c.datumUclanjenja = :datumUclanjenja"),
+    @NamedQuery(name = "Clan.findByIme", query = "SELECT c FROM Clan c WHERE c.ime = :ime"),
+    @NamedQuery(name = "Clan.findByPrezime", query = "SELECT c FROM Clan c WHERE c.prezime = :prezime"),
+    @NamedQuery(name = "Clan.findByKontakt", query = "SELECT c FROM Clan c WHERE c.kontakt = :kontakt"),
+    @NamedQuery(name = "Clan.findByAdresa", query = "SELECT c FROM Clan c WHERE c.adresa = :adresa")})
 public class Clan implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "broj_clana")
     private Integer brojClana;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "datum_uclanjenja")
     @Temporal(TemporalType.DATE)
     private Date datumUclanjenja;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "ime")
     private String ime;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
     @Column(name = "prezime")
     private String prezime;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "kontakt")
     private String kontakt;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "adresa")
     private String adresa;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clan")
@@ -63,6 +82,14 @@ public class Clan implements Serializable {
 
     public Clan(Integer brojClana) {
         this.brojClana = brojClana;
+    }
+
+    public Clan(Date datumUclanjenja, String ime, String prezime, String kontakt, String adresa) {
+        this.datumUclanjenja = datumUclanjenja;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.kontakt = kontakt;
+        this.adresa = adresa;
     }
 
     public Integer getBrojClana() {
@@ -146,5 +173,5 @@ public class Clan implements Serializable {
     public String toString() {
         return "domen.Clan[ brojClana=" + brojClana + " ]";
     }
-    
+
 }
