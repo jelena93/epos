@@ -14,7 +14,7 @@
                 <li><a href="../action/pretraga_clanova">Pretraga clanova</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="../odjava"><span class="glyphicon glyphicon-log-out"></span> Odjavi se</a></li>
+                <li><a href="../action/odjava"><span class="glyphicon glyphicon-log-out"></span> Odjavi se</a></li>
             </ul>
         </div>
     </div>

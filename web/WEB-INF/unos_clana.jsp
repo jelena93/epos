@@ -5,7 +5,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <title>Unos clana</title>
         <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
         <link href="../resources/css/font-awesome.min.css" rel="stylesheet">
@@ -19,13 +18,13 @@
         <script src="../resources/js/datepicker-sr.js"></script>
 
         <script>
-            $(function() {
+            $(function () {
                 $("#datumRodjenja").datepicker({
                     dateFormat: "dd.mm.yy.",
-                    onSelect: function() {
+                    onSelect: function () {
                         this.focus();
                     },
-                    onClose: function() {
+                    onClose: function () {
                         this.blur();
                     }
 //                    onSelect: function (dateText, datePicker) {
@@ -36,8 +35,8 @@
                 });
 
             });
-            $(document).ready(function() {
-                $('input').on('blur', function() {
+            $(document).ready(function () {
+                $('input').on('blur', function () {
                     if (this.type !== 'checkbox' && this.type !== 'submit') {
                         if (this.value !== "" && this.value !== null) {
                             this.className = "form-control";
@@ -51,38 +50,32 @@
             function proveriPolja() {
                 var ime = document.getElementById("ime");
                 var prezime = document.getElementById("prezime");
-                var datumRodjenja = document.getElementById("datumRodjenja");
                 var kontakt = document.getElementById("kontakt");
                 var adresa = document.getElementById("adresa");
-                var email = document.getElementById("email");
                 if (ime.value === "") {
                     ime.className += " prazan";
                 }
                 if (prezime.value === "") {
                     prezime.className += " prazan";
                 }
-                if (datumRodjenja.value === "") {
-                    datumRodjenja.className += " prazan";
+                if (kontakt.value === "") {
+                    kontakt.className += " prazan";
                 }
                 if (adresa.value === "") {
                     adresa.className += " prazan";
                 }
                 var validacija = true;
                 var greska = "";
-                if (ime.value === "" || prezime.value === "" || datumRodjenja.value === "" || adresa.value === "") {
+                if (ime.value === "" || prezime.value === "" || adresa.value === "" || kontakt.value === "" ||
+                        uplata.value === "") {
                     greska += "Niste popunili sva polja. <br/>";
                     validacija = false;
                 }
-                if (!kontakt.value.match(/0\d{2}\/\d{3}-\d{4}/g)) {
-                    kontakt.className += " prazan";
-                    greska += "Kontakt nije u odgovarajućem formatu(0##/###-####). <br/>";
-                    validacija = false;
-                }
-                if (!email.value.match("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
-                    email.className += " prazan";
-                    greska += "Email nije validan.";
-                    validacija = false;
-                }
+//                if (!kontakt.value.match(/0\d{2}\/\d{3}-\d{4}/g)) {
+//                    kontakt.className += " prazan";
+//                    greska += "Kontakt nije u odgovarajućem formatu(0##/###-####). <br/>";
+//                    validacija = false;
+//                }
                 if (!validacija) {
                     $("#upozorenje").html('<div class="alert alert-danger">' +
                             '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
@@ -94,71 +87,57 @@
         </script>
     </head>
     <body>
-    <sec:authentication var="ulogovan" property="principal"/>
-    <%@include file="trener_meni.jsp" %>
+    <%@include file="meni.jsp" %>
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
                 <h2>Unos člana</h2>
                 <hr/>
-                <div id="upozorenje"><c:if test="${not empty greska}">
+                <div id="upozorenje">
+                    <c:if test="${not empty greska}">
                         <div class="alert alert-danger">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>${greska}</strong>
                         </div>
-                    </c:if></div>
-                <form:form class="form-horizontal" role="form" action="unos" method="POST" modelAttribute="clan" onsubmit="return proveriPolja()">
-                    <form:hidden path="brojClana"></form:hidden> 
-                    <form:hidden path="datumUclanjenja"></form:hidden> 
-
+                    </c:if>
+                    <c:if test="${not empty poruka}">
+                        <div class="alert alert-success">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>${poruka}</strong>
+                        </div>
+                    </c:if>
+                </div>
+                <form class="form-horizontal" role="form" action="unos_clana" method="POST" onsubmit="return proveriPolja()">
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="ime">Ime:</label>
                         <div class="col-sm-8">
-                            <form:input path="ime" id="ime" class="form-control" cssErrorClass="form-control prazan"></form:input>
-                            <form:errors path="ime" cssClass="error"></form:errors>
+                            <input type="text" name="ime" placeholder="Ime" class="form-control" id="ime">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="prezime">Prezime:</label>
                         <div class="col-sm-8">
-                            <form:input path="prezime" id="prezime" class="form-control" cssErrorClass="form-control prazan"></form:input>
-                            <form:errors path="prezime" cssClass="error"></form:errors>
+                            <input type="text" name="prezime" placeholder="Prezime" class="form-control" id="prezime">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-4" for="datumRodjenja">Datum rođenja:</label>
+                        <label class="control-label col-sm-4" for="kontakt">Kontakt:</label>
                         <div class="col-sm-8">
-                            <form:input path="datumRodjenja" id="datumRodjenja" placeholder="DD.MM.YYYY." class="form-control" cssErrorClass="form-control prazan"></form:input>
-                            <form:errors path="datumRodjenja" cssClass="error"></form:errors>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-4" for="email">Email:</label>
-                        <div class="col-sm-8">
-                            <form:input path="email" id="email" class="form-control" cssErrorClass="form-control prazan"></form:input>
-                            <form:errors path="email" cssClass="error"></form:errors>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-4" for="kontakt">Kontakt telefon:</label>
-                        <div class="col-sm-8">
-                            <form:input path="kontakt" id="kontakt" placeholder="0##/###-####" class="form-control" cssErrorClass="form-control prazan"></form:input>
-                            <form:errors path="kontakt" cssClass="error"></form:errors>
+                            <input type="text" name="kontakt" placeholder="Kontakt" class="form-control" id="kontakt">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="adresa">Adresa:</label>
                         <div class="col-sm-8">
-                            <form:input path="adresa" id="adresa" class="form-control" cssErrorClass="form-control prazan"></form:input>
-                            <form:errors path="adresa" cssClass="error"></form:errors>
+                            <input type="text" name="adresa" placeholder="Adresa" class="form-control" id="adresa">
                         </div>
                     </div>
                     <div class="form-group"> 
                         <div class="col-sm-offset-9 col-sm-2">
-                            <input type="submit" class="btn btn-primary" value="Sačuvaj">
+                            <input type="submit" class="btn btn-primary" value="Unesi">
                         </div>
                     </div>
-                </form:form>
+                </form>
             </div>
         </div>
     </div>

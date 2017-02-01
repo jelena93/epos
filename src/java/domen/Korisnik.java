@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domen;
 
 import java.io.Serializable;
@@ -20,18 +19,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author jelenas
+ * @author Jelena
  */
 @Entity
 @Table(name = "korisnik")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k"),
-    @NamedQuery(name = "Korisnik.findByUsername", query = "SELECT k FROM Korisnik k WHERE k.username = :username"),
-    @NamedQuery(name = "Korisnik.findByLozinka", query = "SELECT k FROM Korisnik k WHERE k.lozinka = :lozinka"),
-    @NamedQuery(name = "Korisnik.findByIme", query = "SELECT k FROM Korisnik k WHERE k.ime = :ime"),
-    @NamedQuery(name = "Korisnik.findByPrezime", query = "SELECT k FROM Korisnik k WHERE k.prezime = :prezime")})
+    @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k")
+    , @NamedQuery(name = "Korisnik.findByUsername", query = "SELECT k FROM Korisnik k WHERE k.username = :username")
+    , @NamedQuery(name = "Korisnik.findByLozinka", query = "SELECT k FROM Korisnik k WHERE k.lozinka = :lozinka")
+    , @NamedQuery(name = "Korisnik.findByIme", query = "SELECT k FROM Korisnik k WHERE k.ime = :ime")
+    , @NamedQuery(name = "Korisnik.findByPrezime", query = "SELECT k FROM Korisnik k WHERE k.prezime = :prezime")})
 public class Korisnik implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -39,19 +39,13 @@ public class Korisnik implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "username")
     private String username;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "lozinka")
     private String lozinka;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "ime")
     private String ime;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    @Size(max = 30)
     @Column(name = "prezime")
     private String prezime;
 
@@ -60,13 +54,6 @@ public class Korisnik implements Serializable {
 
     public Korisnik(String username) {
         this.username = username;
-    }
-
-    public Korisnik(String username, String lozinka, String ime, String prezime) {
-        this.username = username;
-        this.lozinka = lozinka;
-        this.ime = ime;
-        this.prezime = prezime;
     }
 
     public String getUsername() {

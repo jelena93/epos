@@ -5,6 +5,7 @@
  */
 package domen;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,26 +22,25 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author jelenas
+ * @author Jelena
  */
 @Entity
 @Table(name = "clan")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Clan.findAll", query = "SELECT c FROM Clan c"),
-    @NamedQuery(name = "Clan.findByBrojClana", query = "SELECT c FROM Clan c WHERE c.brojClana = :brojClana"),
-    @NamedQuery(name = "Clan.findByDatumUclanjenja", query = "SELECT c FROM Clan c WHERE c.datumUclanjenja = :datumUclanjenja"),
-    @NamedQuery(name = "Clan.findByIme", query = "SELECT c FROM Clan c WHERE c.ime = :ime"),
-    @NamedQuery(name = "Clan.findByPrezime", query = "SELECT c FROM Clan c WHERE c.prezime = :prezime"),
-    @NamedQuery(name = "Clan.findByKontakt", query = "SELECT c FROM Clan c WHERE c.kontakt = :kontakt"),
-    @NamedQuery(name = "Clan.findByAdresa", query = "SELECT c FROM Clan c WHERE c.adresa = :adresa")})
+    @NamedQuery(name = "Clan.findAll", query = "SELECT c FROM Clan c")
+    , @NamedQuery(name = "Clan.findByBrojClana", query = "SELECT c FROM Clan c WHERE c.brojClana = :brojClana")
+    , @NamedQuery(name = "Clan.findByDatumUclanjenja", query = "SELECT c FROM Clan c WHERE c.datumUclanjenja = :datumUclanjenja")
+    , @NamedQuery(name = "Clan.findByIme", query = "SELECT c FROM Clan c WHERE c.ime = :ime")
+    , @NamedQuery(name = "Clan.findByPrezime", query = "SELECT c FROM Clan c WHERE c.prezime = :prezime")
+    , @NamedQuery(name = "Clan.findByKontakt", query = "SELECT c FROM Clan c WHERE c.kontakt = :kontakt")
+    , @NamedQuery(name = "Clan.findByAdresa", query = "SELECT c FROM Clan c WHERE c.adresa = :adresa")})
 public class Clan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,31 +48,27 @@ public class Clan implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "broj_clana")
+    @Expose
     private Integer brojClana;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "datum_uclanjenja")
     @Temporal(TemporalType.DATE)
+    @Expose
     private Date datumUclanjenja;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "ime")
+    @Expose
     private String ime;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    @Size(max = 30)
     @Column(name = "prezime")
+    @Expose
     private String prezime;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "kontakt")
+    @Expose
     private String kontakt;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "adresa")
+    @Expose
     private String adresa;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clan")
     private List<Clanarina> clanarinaList;
@@ -91,6 +87,8 @@ public class Clan implements Serializable {
         this.kontakt = kontakt;
         this.adresa = adresa;
     }
+    
+    
 
     public Integer getBrojClana() {
         return brojClana;
@@ -173,5 +171,5 @@ public class Clan implements Serializable {
     public String toString() {
         return "domen.Clan[ brojClana=" + brojClana + " ]";
     }
-
+    
 }

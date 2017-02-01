@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domen;
 
 import java.io.Serializable;
@@ -15,23 +14,19 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author jelenas
+ * @author Jelena
  */
 @Embeddable
 public class ClanarinaPK implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "program_id")
-    private int programId;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "broj_clana")
     private int brojClana;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
     @Column(name = "mesec")
-    private String mesec;
+    private int mesec;
     @Basic(optional = false)
     @NotNull
     @Column(name = "godina")
@@ -40,19 +35,10 @@ public class ClanarinaPK implements Serializable {
     public ClanarinaPK() {
     }
 
-    public ClanarinaPK(int programId, int brojClana, String mesec, int godina) {
-        this.programId = programId;
+    public ClanarinaPK(int brojClana, int mesec, int godina) {
         this.brojClana = brojClana;
         this.mesec = mesec;
         this.godina = godina;
-    }
-
-    public int getProgramId() {
-        return programId;
-    }
-
-    public void setProgramId(int programId) {
-        this.programId = programId;
     }
 
     public int getBrojClana() {
@@ -63,11 +49,11 @@ public class ClanarinaPK implements Serializable {
         this.brojClana = brojClana;
     }
 
-    public String getMesec() {
+    public int getMesec() {
         return mesec;
     }
 
-    public void setMesec(String mesec) {
+    public void setMesec(int mesec) {
         this.mesec = mesec;
     }
 
@@ -82,9 +68,8 @@ public class ClanarinaPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) programId;
         hash += (int) brojClana;
-        hash += (mesec != null ? mesec.hashCode() : 0);
+        hash += (int) mesec;
         hash += (int) godina;
         return hash;
     }
@@ -96,13 +81,10 @@ public class ClanarinaPK implements Serializable {
             return false;
         }
         ClanarinaPK other = (ClanarinaPK) object;
-        if (this.programId != other.programId) {
-            return false;
-        }
         if (this.brojClana != other.brojClana) {
             return false;
         }
-        if ((this.mesec == null && other.mesec != null) || (this.mesec != null && !this.mesec.equals(other.mesec))) {
+        if (this.mesec != other.mesec) {
             return false;
         }
         if (this.godina != other.godina) {
@@ -113,7 +95,7 @@ public class ClanarinaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "domen.ClanarinaPK[ programId=" + programId + ", brojClana=" + brojClana + ", mesec=" + mesec + ", godina=" + godina + " ]";
+        return "domen.ClanarinaPK[ brojClana=" + brojClana + ", mesec=" + mesec + ", godina=" + godina + " ]";
     }
     
 }

@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domen;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -16,53 +15,54 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author jelenas
+ * @author Jelena
  */
 @Entity
 @Table(name = "clanarina")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Clanarina.findAll", query = "SELECT c FROM Clanarina c"),
-    @NamedQuery(name = "Clanarina.findByProgramId", query = "SELECT c FROM Clanarina c WHERE c.clanarinaPK.programId = :programId"),
-    @NamedQuery(name = "Clanarina.findByBrojClana", query = "SELECT c FROM Clanarina c WHERE c.clanarinaPK.brojClana = :brojClana"),
-    @NamedQuery(name = "Clanarina.findByMesec", query = "SELECT c FROM Clanarina c WHERE c.clanarinaPK.mesec = :mesec"),
-    @NamedQuery(name = "Clanarina.findByGodina", query = "SELECT c FROM Clanarina c WHERE c.clanarinaPK.godina = :godina"),
-    @NamedQuery(name = "Clanarina.findByIznos", query = "SELECT c FROM Clanarina c WHERE c.iznos = :iznos")})
+    @NamedQuery(name = "Clanarina.findAll", query = "SELECT c FROM Clanarina c")
+    , @NamedQuery(name = "Clanarina.findByBrojClana", query = "SELECT c FROM Clanarina c WHERE c.clanarinaPK.brojClana = :brojClana")
+    , @NamedQuery(name = "Clanarina.findByMesec", query = "SELECT c FROM Clanarina c WHERE c.clanarinaPK.mesec = :mesec")
+    , @NamedQuery(name = "Clanarina.findByGodina", query = "SELECT c FROM Clanarina c WHERE c.clanarinaPK.godina = :godina")
+    , @NamedQuery(name = "Clanarina.findByDatumUplate", query = "SELECT c FROM Clanarina c WHERE c.datumUplate = :datumUplate")
+    , @NamedQuery(name = "Clanarina.findByIznos", query = "SELECT c FROM Clanarina c WHERE c.iznos = :iznos")
+    , @NamedQuery(name = "Clanarina.findByKorisnik", query = "SELECT c FROM Clanarina c WHERE c.korisnik = :korisnik")})
 public class Clanarina implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ClanarinaPK clanarinaPK;
-    @Basic(optional = false)
-    @NotNull
+    @Column(name = "datum_uplate")
+    @Temporal(TemporalType.DATE)
+    private Date datumUplate;
     @Column(name = "iznos")
-    private int iznos;
+    private Integer iznos;
+    @Size(max = 20)
+    @Column(name = "korisnik")
+    private String korisnik;
     @JoinColumn(name = "broj_clana", referencedColumnName = "broj_clana", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Clan clan;
-    @JoinColumn(name = "program_id", referencedColumnName = "program_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Program program;
 
     public Clanarina() {
     }
 
-    public Clanarina(ClanarinaPK clanarinaPK) {
+    public Clanarina(ClanarinaPK clanarinaPK, Date datumUplate, Integer iznos, String korisnik) {
         this.clanarinaPK = clanarinaPK;
-    }
-
-    public Clanarina(ClanarinaPK clanarinaPK, int iznos) {
-        this.clanarinaPK = clanarinaPK;
+        this.datumUplate = datumUplate;
         this.iznos = iznos;
+        this.korisnik = korisnik;
     }
 
-    public Clanarina(int programId, int brojClana, String mesec, int godina) {
-        this.clanarinaPK = new ClanarinaPK(programId, brojClana, mesec, godina);
-    }
+   
 
     public ClanarinaPK getClanarinaPK() {
         return clanarinaPK;
@@ -72,12 +72,28 @@ public class Clanarina implements Serializable {
         this.clanarinaPK = clanarinaPK;
     }
 
-    public int getIznos() {
+    public Date getDatumUplate() {
+        return datumUplate;
+    }
+
+    public void setDatumUplate(Date datumUplate) {
+        this.datumUplate = datumUplate;
+    }
+
+    public Integer getIznos() {
         return iznos;
     }
 
-    public void setIznos(int iznos) {
+    public void setIznos(Integer iznos) {
         this.iznos = iznos;
+    }
+
+    public String getKorisnik() {
+        return korisnik;
+    }
+
+    public void setKorisnik(String korisnik) {
+        this.korisnik = korisnik;
     }
 
     public Clan getClan() {
@@ -86,14 +102,6 @@ public class Clanarina implements Serializable {
 
     public void setClan(Clan clan) {
         this.clan = clan;
-    }
-
-    public Program getProgram() {
-        return program;
-    }
-
-    public void setProgram(Program program) {
-        this.program = program;
     }
 
     @Override

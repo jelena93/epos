@@ -12,10 +12,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Jelena
- */
 public class Util {
 
     public static String PERSISTENCE_UNIT_NAME = "EposPU";
@@ -24,6 +20,7 @@ public class Util {
     public static String STRANA_POCETNA = "pocetna";
     public static String STRANA_UNOS_CLANA = "unos_clana";
     public static String STRANA_PRETRAGA_CLANOVA = "pretraga_clanova";
+    public static String STRANA_CLAN = "clan";
     public static Properties propUrl = new Properties();
     public static Properties propKlasa = new Properties();
 

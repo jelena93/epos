@@ -5,7 +5,6 @@
  */
 package action;
 
-import domen.Korisnik;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,7 +26,7 @@ public class ActionPrijava implements Action {
         Query query = em.createQuery("SELECT k FROM Korisnik k WHERE k.username=:u AND k.lozinka=:l");
         query.setParameter("u", username);
         query.setParameter("l", lozinka);
-        List<Korisnik> ls = query.getResultList();
+        List ls = query.getResultList();
         if (!ls.isEmpty()) {
             strana = Util.STRANA_POCETNA;
             HttpSession sesija = request.getSession(true);
