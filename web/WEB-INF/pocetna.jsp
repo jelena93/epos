@@ -16,7 +16,33 @@
 </head>
 <body>
     <%@include file="meni.jsp" %>
-    hello ${ulogovan}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <br/>
+                <div class="panel-body inf-content">
+                    <strong>Podaci</strong>
+                    <br/>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-responsive table-user-information">
+                            <tbody>
+                                <tr><td><strong>Username:</strong></td>
+                                    <td class="text-danger">${ulogovan.username}</td>
+                                </tr>
+                                <tr><td><strong>Ime:</strong></td>
+                                    <td class="text-danger">${ulogovan.ime}</td>
+                                </tr>
+                                <tr><td><strong>Prezime:</strong></td>
+                                    <td class="text-danger">${ulogovan.prezime}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../resources/js/jquery-1.11.1.min.js"></script>
 </body>
 </html>
