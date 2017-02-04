@@ -2,9 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/User/Desktop/KarateKlub/src/java/action/ActionPrijava.java</file>
-        </group>
         <group name="mine">
             <file>file:/home/jelenas/git-repos/epos/src/java/action/ActionPrijava.java</file>
             <file>file:/home/jelenas/git-repos/epos/src/conf/persistence.xml</file>
@@ -19,6 +16,10 @@
             <file>file:/home/jelenas/git-repos/epos/src/java/resources/action.properties</file>
             <file>file:/home/jelenas/git-repos/epos/src/java/resources/url.properties</file>
             <file>file:/home/jelenas/git-repos/epos/web/WEB-INF/pocetna.jsp</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/User/Documents/git-repos/epos/web/WEB-INF/pretraga_clanova.jsp</file>
+            <file>file:/C:/Users/User/Documents/git-repos/epos/src/java/servlet/FrontController.java</file>
         </group>
     </open-files>
 </project-private>

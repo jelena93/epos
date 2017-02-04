@@ -16,34 +16,16 @@
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="../resources/js/datepicker-sr.js"></script>
-
         <script>
-            $(function () {
-                $("#datumRodjenja").datepicker({
-                    dateFormat: "dd.mm.yy.",
-                    onSelect: function () {
-                        this.focus();
-                    },
-                    onClose: function () {
-                        this.blur();
-                    }
-//                    onSelect: function (dateText, datePicker) {
-//                        $('#datumRodjenja').val(dateText);
-//                        console.log(dateText);
-//                        console.log($('#datumRodjenja').val());
-//                    }
-                });
-
-            });
+           
             $(document).ready(function () {
                 $('input').on('blur', function () {
-                    if (this.type !== 'checkbox' && this.type !== 'submit') {
                         if (this.value !== "" && this.value !== null) {
                             this.className = "form-control";
                         } else {
                             this.className += " prazan";
                         }
-                    }
+                    
                 });
 
             });
@@ -66,8 +48,7 @@
                 }
                 var validacija = true;
                 var greska = "";
-                if (ime.value === "" || prezime.value === "" || adresa.value === "" || kontakt.value === "" ||
-                        uplata.value === "") {
+                if (ime.value === "" || prezime.value === "" || adresa.value === "" || kontakt.value === "") {
                     greska += "Niste popunili sva polja. <br/>";
                     validacija = false;
                 }

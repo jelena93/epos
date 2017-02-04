@@ -32,7 +32,7 @@
                                             clanovi[i].ime + '</td><td>'
                                             + clanovi[i].prezime + '</td><td>' +
                                             clanovi[i].kontakt + '</td><td>' +
-                                            clanovi[i].adresa + '</td><td><a href="/karateklub/trener/clan/' +
+                                            clanovi[i].adresa + '</td><td><a href="/epos/action/clan?brojClana=' +
                                             clanovi[i].brojClana + '">Detalji</a></td></tr>');
                         }
                     },
